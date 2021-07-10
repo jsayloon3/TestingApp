@@ -1,0 +1,97 @@
+﻿@model IEnumerable<TestingApp.Models.TestAppRecord>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue_Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assigned_Developer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assigned_Tester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cycle_Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Per_Cycle_Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Release_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Issue_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_Name)
+            </td>
+            <td>
+                @if (item.Issue_Type == 0)
+                {
+                    <p>Buggs</p>
+                }
+                else
+                {
+                    <p>Enhancement</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assigned_Developer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assigned_Tester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cycle_Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Per_Cycle_Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Release_Date)
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {
+                    <p>Failed</p>
+                }
+                else
+                {
+                    <p>Passed</p>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
