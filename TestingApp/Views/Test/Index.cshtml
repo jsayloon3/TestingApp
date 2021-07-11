@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<TestingApp.Models.TestAppRecord>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manage";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-dark">Add New Record</a>
 </p>
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-striped table-responsive table-hover">
     <thead>
         <tr>
             <th>
@@ -43,55 +41,53 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Issue_Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Client_Name)
-            </td>
-            <td>
-                @if (item.Issue_Type == 0)
-                {
-                    <p>Buggs</p>
-                }
-                else
-                {
-                    <p>Enhancement</p>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Assigned_Developer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Assigned_Tester)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cycle_Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_Per_Cycle_Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Release_Date)
-            </td>
-            <td>
-                @if (item.Status == 0)
-                {
-                    <p>Failed</p>
-                }
-                else
-                {
-                    <p>Passed</p>
-                }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.Count() == 0)
+        {
+            <tr class="text-center">
+                <td colspan="10">Empty Record</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Issue_Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client_Name)
+                    </td>
+                    <td>
+                        @{ var issue_type = item.Issue_Type == 0 ? "Buggs" : "Enhancement"; }
+                        @issue_type
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Assigned_Developer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Assigned_Tester)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cycle_Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_Per_Cycle_Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Release_Date)
+                    </td>
+                    <td>
+                        @{ var status = item.Status == 0 ? "Failed" : "Passed"; }
+                        @status
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
